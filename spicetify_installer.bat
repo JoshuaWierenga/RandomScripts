@@ -1,6 +1,7 @@
 @echo off
 
-:: Joshua's Spicetify installer v0.2
+:: Joshua's Spicetify installer v0.3
+:: v0.3: Merged eternal jukebox and lyrics plus sections, spotify complains if restarted to many times in a row and this reduces the number of restarts by 1
 :: v0.2: Fixes icacls calls as they need admin privileges but running this script as admin causes spicetify to complain on install
 
 :: A new version url can be obtained on Windows 10/11 as follows:
@@ -44,7 +45,7 @@ powershell -Command "& {iwr -useb https://raw.githubusercontent.com/Tetrax-10/No
 
 :: This is optional, comment if not desired
 echo:
-echo Installing lyrics plus custom app
+echo Installing eternal jukebox and lyrics plus custom apps
 curl -L -o spicetify-git.zip https://github.com/spicetify/spicetify-cli/archive/refs/heads/master.zip
 :: Can windows tar set the output dir? Currently its quite annoying as despite asking for just lyrics-plus, it extracts
 :: the full dir structure relative to the original zip
@@ -52,16 +53,12 @@ tar -xf spicetify-git.zip spicetify-cli-master/CustomApps/lyrics-plus
 xcopy "spicetify-cli-master\CustomApps" "%appdata%\spicetify\CustomApps" /s /e /y
 del /f /s /q spicetify-git.zip "spicetify-cli-master" >nul
 rmdir /s /q "spicetify-cli-master"
-spicetify config custom_apps lyrics-plus
-spicetify apply
 
-:: This is optional, comment if not desired
-echo:
-echo Installing eternal jukebox custom app
 curl -L -o eternal-jukebox.zip https://github.com/Pithaya/spicetify-apps-dist/archive/refs/heads/dist/eternal-jukebox.zip
 tar -xf eternal-jukebox.zip
 xcopy "spicetify-apps-dist-dist-eternal-jukebox" "%appdata%\spicetify\CustomApps\eternal-jukebox\" /s /e /y
 del /f /s /q eternal-jukebox.zip "spicetify-apps-dist-dist-eternal-jukebox" >nul
 rmdir /s /q "spicetify-apps-dist-dist-eternal-jukebox"
-spicetify config custom_apps eternal-jukebox
+spicetify config custom_apps lyrics-plus eternal-jukebox
+
 spicetify apply
