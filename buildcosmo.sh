@@ -1,12 +1,12 @@
 #!/bin/sh
 
-if [ ! -f cosmopolitan ]; then
+if [ ! -d cosmopolitan ]; then
   git clone https://github.com/JoshuaWierenga/cosmopolitan -b build-on-windows-3
 fi
 (
 cd cosmopolitan || exit
 
-if [ ! -f o/third_party/gcc ]; then
+if [ ! -d o/third_party/gcc ]; then
   mkdir -p o/third_party/gcc
   (
   cd o/third_party/gcc || exit
