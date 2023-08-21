@@ -21,7 +21,7 @@ if [ ! -f o/third_party/gcc ]; then
 fi
 
 PATHBACKUP="$PATH"
-PATH="$PATH:$(PWD)/o/third_party/gcc/bin"
+PATH="$PATH:$(pwd)/o/third_party/gcc/bin"
 
 # nproc on its own is probably fine but whatever
 build/bootstrap/make.com MODE= -j$(($(nproc) + 1))
