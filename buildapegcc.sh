@@ -1,8 +1,9 @@
 #!/bin/sh
 
-# Joshua's ape gcc build script 0.6.0
+# Joshua's ape gcc build script 0.6.1
 # Based on https://github.com/ahgamut/musl-cross-make/blob/cibuild/.github/workflows/release.yml
 # Changes
+#0.6.1: Modify cosmocc so that --update works in this environment
 #0.6.0: Again use a slightly newever version of cosmo, this time from 2023/08/14
 #       Needed to replace setup-cosmos script since it no longer exists
 #0.5.0: Again use a slightly newever version of cosmo, this time from 2023/08/13
@@ -39,12 +40,9 @@ sed -i '7 i\
 sed -i 's/-j2/-j$proc/' .github/scripts/cosmo
 cosmopolitan/bin/ape-install
 bash ./.github/scripts/cosmo
-mkdir -p "$COSMOS/lib" || exit
-for lib in c dl gcc_s m pthread resolv rt dl z stdc++; do
-  if [ ! -f "$COSMOS/lib/lib${lib}.a" ]; then
-    printf '\041\074\141\162\143\150\076\012' >"$COSMOS/lib/lib${lib}.a" || exit
-  fi
-done
+
+sed -i -e 's#cd /opt/cosmo#cd "$COSMO"#' -e 's/if GIT/if false \&\& GIT/' cosmopolitan/bin/cosmocc
+cosmopolitan/bin/cosmocc --update
 
 sed -i -e 's#tool/scripts#bin#' -e 's/-j2/-j$proc/' .github/scripts/build
 sed -i 's#tool/scripts#bin#' cosmo-ci.mak
