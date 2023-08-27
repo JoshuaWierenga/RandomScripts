@@ -1,9 +1,12 @@
 #!/bin/sh
 
-# Joshua's ape gcc build script 0.4.0
+# Joshua's ape gcc build script 0.5.0
 # Based on https://github.com/ahgamut/musl-cross-make/blob/cibuild/.github/workflows/release.yml
 # Changes
+#0.5.0: Again use a slightly newever version of cosmo, this time from 2023/08/13
+#       Remove chmod on cosmopolitan.a as it is no longer required
 #0.4.0: Updated to a slightly newer version of cosmo with an updated cosmocc
+#       Add fix for cosmocc checking for execute permission on cosmopolitan.a
 #0.3.0: Use a newer version of cosmo from 2023/08/12 instead of one from 2023/07/25
 #       Cleanup cosmo download code slightly but not using a subshell
 #0.2.1: Using same cosmo commit but now from the main repo, manually add getopt change
@@ -17,7 +20,7 @@ mkdir cosmopolitan
 cd cosmopolitan || exit
 git init
 git remote add origin https://github.com/jart/cosmopolitan.git
-git fetch origin d53c335a459c1f5c7955686a8fd1c3b7c9deefc0 --depth=1
+git fetch origin 3f2f0e3a744657ba3668f293c2fc5eb8617af3ed --depth=1
 git reset --hard FETCH_HEAD
 cd ..
 
@@ -32,12 +35,11 @@ sed -i '7 i\
 #endif\
 ' cosmopolitan/third_party/getopt/long.h
 sed -i 's/-j2/-j$proc/' .github/scripts/cosmo
-bash ./.github/scripts/cosmo
-
-cosmopolitan/tool/scripts/setup-cosmos
 cosmopolitan/bin/ape-install
+bash ./.github/scripts/cosmo
+cosmopolitan/tool/scripts/setup-cosmos
+
 sed -i -e 's#tool/scripts#bin#' -e 's/-j2/-j$proc/' .github/scripts/build
 sed -i 's#tool/scripts#bin#' cosmo-ci.mak
-sed -i 's/-x/-f/' cosmopolitan/bin/cosmocc
 bash ./.github/scripts/build
 )
