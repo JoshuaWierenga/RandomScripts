@@ -1,9 +1,10 @@
 #!/bin/sh
 
-# Joshua's ape gcc build script 0.7.0
+# Joshua's ape gcc build script 0.8.0
 # Based on https://github.com/ahgamut/musl-cross-make/blob/cibuild/.github/workflows/release.yml
 # Changes
-#0.7.0: Use a sligher never version of cosmo, cleanup script slightly and remove now 
+#0.8.0: Use a slightly newer version of cosmo from 2023/08/16, update getopt patch
+#0.7.0: Use a slightly newer version of cosmo, cleanup script slightly and remove now 
 #       unneeded correction to cosmocc
 #0.6.1: Modify cosmocc so that --update works in this environment
 #0.6.0: Again use a slightly newer version of cosmo, this time from 2023/08/14
@@ -30,14 +31,16 @@ mkdir cosmopolitan
 cd cosmopolitan || exit
 git init
 git remote add origin https://github.com/jart/cosmopolitan.git
-git fetch origin f5b39e9f31d3992c61f9399720b376b515f93b75 --depth=1
+git fetch origin 74caabb823124db6f8e39949963391fe40c98b86 --depth=1
 git reset --hard FETCH_HEAD
 
 sed -i '7 i\
 #ifndef _GETOPT_H\
 #define _GETOPT_H\
 #endif\
-' third_party/getopt/long.h
+' third_party/getopt/long2.h
+sed -i '14 i\
+#include "third_party/getopt/long2.h"' libc/isystem/unistd.h
 sed -i 's/if GIT/if false \&\& GIT/' bin/cosmocc
 bin/ape-install
 bin/cosmocc --update
