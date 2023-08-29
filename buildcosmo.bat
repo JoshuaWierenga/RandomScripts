@@ -1,17 +1,20 @@
 @echo off
 
-REM Joshua's windows cosmopolitan build script 0.2
+REM Joshua's windows cosmopolitan build script 0.2.1
 REM Changes:
-REM 0.2: Worked around python test flakiness and cosmo expecting toolchain binaries with
-REM      a specific prefix
+REM 0.2.1: Use a version of ape gcc based on a much newer version of cosmo
+REM 0.2.0: Worked around python test flakiness and cosmo expecting toolchain binaries with
+REM        a specific prefix
 
-if not exist cosmopolitan (git clone -c core.autocrlf=false https://github.com/JoshuaWierenga/cosmopolitan -b build-on-windows-3)
+if not exist cosmopolitan (
+  git clone -c core.autocrlf=false https://github.com/JoshuaWierenga/cosmopolitan -b build-on-windows-3
+)
 cd cosmopolitan
 
 if not exist o\third_party\gcc (
   mkdir o\third_party\gcc
   cd o\third_party\gcc
-  curl -LO https://github.com/ahgamut/musl-cross-make/releases/download/z0.0.1/gcc11.zip
+  curl -LO https://github.com/JoshuaWierenga/RandomScripts/releases/download/z0.0.0-1/gcc11.zip
   tar -xvf gcc11.zip
   del gcc11.zip
   
