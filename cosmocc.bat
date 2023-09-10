@@ -1,7 +1,8 @@
 @echo off
 
-REM Joshua's windows cosmocc wrapper script 0.1.1
+REM Joshua's windows cosmocc wrapper script 0.1.2
 REM Changes:
+REM 0.1.2: Another slight instructions cleanup
 REM 0.1.1: Cleaned up the instructions and fixed a bug with endlocal
 
 goto: instend:
@@ -27,13 +28,12 @@ int main() {^
 }> hello.c
 
 REM if using pwsh then run
-Set-Content hello.c "#include <stdio.h>
+echo "#include <stdio.h>
 
 int main() {
   printf(`"hello world\n`");
-}"
-REM finally run:
-REM .\cosmocc.bat -o hello.com hello.c
+}" > hello.c
+REM finally run: .\cosmocc.bat -o hello.com hello.c
 :instend
 
 if not defined COSMO (
