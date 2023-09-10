@@ -1,11 +1,12 @@
 @echo off
 
-REM Joshua's windows cosmocc wrapper script 0.1.2
+REM Joshua's windows cosmocc wrapper script 0.1.3
 REM Changes:
+REM 0.1.3: Fix goto mistake and improve instructions
 REM 0.1.2: Another slight instructions cleanup
 REM 0.1.1: Cleaned up the instructions and fixed a bug with endlocal
 
-goto: instend:
+goto :instend
 REM Instructions:
 REM Download both buildcosmo.bat and cosmocc.bat and place in the same directory
 REM Putting the cosmopolitan and cosmos directories in different locations does work but isn't recommended
@@ -27,13 +28,15 @@ int main() {^
 
 }> hello.c
 
-REM if using pwsh then run
+REM if using pwsh then run this, again including the blank line at the end
 echo "#include <stdio.h>
 
 int main() {
   printf(`"hello world\n`");
 }" > hello.c
+
 REM finally run: .\cosmocc.bat -o hello.com hello.c
+REM See https://github.com/jart/cosmopolitan#getting-started for more info
 :instend
 
 if not defined COSMO (
