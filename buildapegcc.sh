@@ -1,12 +1,16 @@
 #!/bin/sh
 
-# Joshua's ape gcc build script 0.9.0
+# Joshua's ape gcc build script 0.10.0
 # Based on https://github.com/ahgamut/musl-cross-make/blob/cibuild/.github/workflows/release.yml
 # Changes
+#.0.10.0: Update cosmo to a commit from 2023/09/07, there are currently some major
+          issues with windows support including random crashing so not going any
+          further for now.
+          Remove git disable patch since it is no longer needed.
 #0.9.0: Use the current newest version of cosmo from 2023/08/27 🎉
 #       I think a few extra warnings appeared but it does build and work correctly
 #0.8.0: Use a slightly newer version of cosmo from 2023/08/16, update getopt patch
-#0.7.0: Use a slightly newer version of cosmo, cleanup script slightly and remove now 
+#0.7.0: Use a slightly newer version of cosmo, cleanup script slightly and remove now
 #       unneeded correction to cosmocc
 #0.6.1: Modify cosmocc so that --update works in this environment
 #0.6.0: Again use a slightly newer version of cosmo, this time from 2023/08/14
@@ -33,7 +37,7 @@ mkdir cosmopolitan
 cd cosmopolitan || exit
 git init
 git remote add origin https://github.com/jart/cosmopolitan.git
-git fetch origin 4021cd0c1e898970dc82c19733500cad9edf0142 --depth=1
+git fetch origin 032b1f3449f0103d5f58ac43a9479a2fd850fa49 --depth=1
 git reset --hard FETCH_HEAD
 
 sed -i '7 i\
@@ -43,7 +47,6 @@ sed -i '7 i\
 ' third_party/getopt/long2.h
 sed -i '14 i\
 #include "third_party/getopt/long2.h"' libc/isystem/unistd.h
-sed -i 's/if GIT/if false \&\& GIT/' bin/cosmocc
 bin/ape-install
 bin/cosmocc --update
 cd ..
