@@ -4,9 +4,9 @@
 # Based on https://github.com/ahgamut/musl-cross-make/blob/cibuild/.github/workflows/release.yml
 # Changes
 #.0.10.0: Update cosmo to a commit from 2023/09/07, there are currently some major
-          issues with windows support including random crashing so not going any
-          further for now.
-          Remove git disable patch since it is no longer needed.
+#         issues with windows support including random crashing so not going any
+#         further for now.
+#         Remove git disable patch since it is no longer needed.
 #0.9.0: Use the current newest version of cosmo from 2023/08/27 🎉
 #       I think a few extra warnings appeared but it does build and work correctly
 #0.8.0: Use a slightly newer version of cosmo from 2023/08/16, update getopt patch
