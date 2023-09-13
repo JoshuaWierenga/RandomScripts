@@ -1,9 +1,10 @@
 @echo off
 
-REM Joshua's windows cosmopolitan build script 0.4.0
+REM Joshua's windows cosmopolitan build script 0.5.0
 REM Changes:
+REM 0.5.0: Updated apegcc version and prevent displaying errors from mkdir if the dir exists
 REM 0.4.0: Moved zip download and extraction to a function and use in case git is unavailable
-REM        Also sped up git clone, copied toolchain check from unix shell version and ensure
+REM        Also sped up git clone, copied toolchain check from unix shell version and ensured
 REM        calling shell's current directory is unchanged
 REM 0.3.0: Use alternative musl toolchain prefix for cosmocc compat, transparently pass-through
 REM        parameters to make and remove now unneeded second make step for python tests
@@ -24,11 +25,11 @@ setlocal
 cd cosmopolitan
 
 if not exist o\third_party\gcc\bin\x86_64-linux-musl-gcc (
-  mkdir o\third_party\gcc
+  mkdir o\third_party\gcc 2>nul
   cd o\third_party\gcc
-  call :download_zip https://github.com/JoshuaWierenga/RandomScripts/releases/download/z0.0.0-1/gcc11.zip,^
+  call :download_zip https://github.com/JoshuaWierenga/RandomScripts/releases/download/z0.0.0-2/gcc11.zip,^
   gcc11.zip
-  
+
   REM Create versions of toolchain programs with the correct prefix and no .com suffix
   REM Cosmo's build system expects x86_64-linux-musl-{toolname} while the tools
   REM themselves just want {toolname} so this line can't just rename the files
