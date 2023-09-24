@@ -1,11 +1,16 @@
 #!/bin/sh
 
-# Joshua's unix cosmopolitan build script 0.3
+# Joshua's unix cosmopolitan build script 0.4.0
 # Changes:
-# 0.3: Use a version of ape gcc based on a much newer version of cosmo, script now works on
-#      linux and netbsd(needs a couple of additional source changes to tests for netbsd though)
-# 0.2: Worked around gnu tar not supporting zips by checking for unzip and bsdtar first
-#      Also worked around cosmo expecting toolchain binaries with a specific prefix and suffix
+# 0.4: Port some features from the batch version including quicker cosmo download via depth,
+#      better gcc setup and remove now unneeded second make step for python tests.
+#      Fixed failure to create the gcc directory not stopping the script.
+#      Use an updated gcc build and an experimental updated cosmo version, the build fails more
+#      but most of that is from improved error detection triggering on already present issues.
+# 0.3: Use a version of ape gcc based on a much newer version of cosmo, the script now works on
+#      linux and netbsd(needs a couple of additional source changes to tests for netbsd though).
+# 0.2: Worked around gnu tar not supporting zips by checking for unzip and bsdtar first.
+#      Also worked around cosmo expecting toolchain binaries with a specific prefix and suffix.
 
 # From https://stackoverflow.com/a/45181694
 portable_nproc() {
@@ -22,22 +27,20 @@ portable_nproc() {
 
 if [ ! -d cosmopolitan ]; then
   if command -v git > /dev/null 2>&1; then
-    git clone https://github.com/JoshuaWierenga/cosmopolitan -b build-on-windows-3
+    git clone https://github.com/JoshuaWierenga/cosmopolitan --depth=1 -b build-on-windows-fix
   else
-    curl -LO https://github.com/JoshuaWierenga/cosmopolitan/archive/refs/heads/build-on-windows-3.zip
-    tar -xvf build-on-windows-3.zip
-    rm build-on-windows-3.zip
-    mv cosmopolitan-build-on-windows-3/ cosmopolitan
+    curl -LO https://github.com/JoshuaWierenga/cosmopolitan/archive/refs/heads/build-on-windows-fix.zip
+    tar -xvf build-on-windows-fix.zip
+    rm build-on-windows-fix.zip
+    mv cosmopolitan-build-on-windows-fix/ cosmopolitan
   fi
 fi
-
 cd cosmopolitan || exit
 
-if [ ! -f o/third_party/gcc/bin/gcc ]; then
+if [ ! -f o/third_party/gcc/bin/gcc/x86_64-linux-musl-gcc ]; then
   mkdir -p o/third_party/gcc
-  (
   cd o/third_party/gcc || exit
-  curl -LO https://github.com/JoshuaWierenga/RandomScripts/releases/download/z0.0.0-1/gcc11.zip
+  curl -LO https://github.com/JoshuaWierenga/RandomScripts/releases/download/z0.0.0-2/gcc11.zip
   if command -v unzip > /dev/null 2>&1; then
     unzip gcc11.zip
   elif command -v bsdtar > /dev/null 2>&1; then
@@ -52,17 +55,13 @@ if [ ! -f o/third_party/gcc/bin/gcc ]; then
   # themselves just want {toolname} so this line can't just rename the files
   # From https://unix.stackexchange.com/a/659132
   find bin -type f -exec sh -c 'mv "$1" "${1%.*}"' sh {} \;
-  find bin -type f -exec sh -c 'cp "$1" bin/x86_64-pc-linux-gnu-"${1#*/}"' sh {} \;
-  )
+  find bin -type f -exec sh -c 'cp "$1" bin/x86_64-linux-musl-"${1#*/}"' sh {} \;
+  cd ../../../
 fi
 
-PATHBACKUP="$PATH"
+(
 PATH="$PATH:$(pwd)/o/third_party/gcc/bin"
 
 # portable_nproc on its own is probably fine but whatever
 build/bootstrap/make.com MODE= -j$(($(portable_nproc) + 1))
-# Python tests are a bit flaky at higher job counts, 12 is fine on my 16 smt thread cpu
-# No clue if 5 could be too high for some systems, ideally this could be removed
-build/bootstrap/make.com MODE= -j1 o//third_party/python
-
-PATH=$PATHBACKUP
+)
