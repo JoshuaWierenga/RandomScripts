@@ -1,16 +1,17 @@
 #!/bin/sh
 
-# Joshua's unix cosmopolitan build script 0.4.0
+# Joshua's unix cosmopolitan build script 0.4.1
 # Changes:
-# 0.4: Port some features from the batch version including quicker cosmo download via depth,
-#      better gcc setup and remove now unneeded second make step for python tests.
-#      Fixed failure to create the gcc directory not stopping the script.
-#      Use an updated gcc build and an experimental updated cosmo version, the build fails more
-#      but most of that is from improved error detection triggering on already present issues.
-# 0.3: Use a version of ape gcc based on a much newer version of cosmo, the script now works on
-#      linux and netbsd(needs a couple of additional source changes to tests for netbsd though).
-# 0.2: Worked around gnu tar not supporting zips by checking for unzip and bsdtar first.
-#      Also worked around cosmo expecting toolchain binaries with a specific prefix and suffix.
+# 0.4.1: Fix gcc check.
+# 0.4:   Port some features from the batch version including quicker cosmo download via depth,
+#        better gcc setup and remove now unneeded second make step for python tests.
+#        Fixed failure to create the gcc directory not stopping the script.
+#        Use an updated gcc build and an experimental updated cosmo version, the build fails more
+#        but most of that is from improved error detection triggering on already present issues.
+# 0.3:   Use a version of ape gcc based on a much newer version of cosmo, the script now works on
+#        linux and netbsd(needs a couple of additional source changes to tests for netbsd though).
+# 0.2:   Worked around gnu tar not supporting zips by checking for unzip and bsdtar first.
+#        Also worked around cosmo expecting toolchain binaries with a specific prefix and suffix.
 
 # From https://stackoverflow.com/a/45181694
 portable_nproc() {
@@ -37,7 +38,7 @@ if [ ! -d cosmopolitan ]; then
 fi
 cd cosmopolitan || exit
 
-if [ ! -f o/third_party/gcc/bin/gcc/x86_64-linux-musl-gcc ]; then
+if [ ! -f o/third_party/gcc/bin/x86_64-linux-musl-gcc ]; then
   mkdir -p o/third_party/gcc
   cd o/third_party/gcc || exit
   curl -LO https://github.com/JoshuaWierenga/RandomScripts/releases/download/z0.0.0-2/gcc11.zip
