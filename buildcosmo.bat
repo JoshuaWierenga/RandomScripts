@@ -1,7 +1,9 @@
 @echo off
 
-REM Joshua's windows cosmopolitan build script 0.5.0
+REM Joshua's windows cosmopolitan build script 0.5.1
 REM Changes:
+REM 0.5.1: Using experimental updated cosmo version, it fails more often but most of that
+REM        is from improved error detection triggering on issues that were already present
 REM 0.5.0: Updated apegcc version and prevent displaying errors from mkdir if the dir exists
 REM 0.4.0: Moved zip download and extraction to a function and use in case git is unavailable
 REM        Also sped up git clone, copied toolchain check from unix shell version and ensured
@@ -15,10 +17,10 @@ REM        a specific prefix
 if not exist cosmopolitan (
   where git >nul
   if %ERRORLEVEL% equ 0 (
-    git clone -c core.autocrlf=false https://github.com/JoshuaWierenga/cosmopolitan --depth=1 -b build-on-windows-3
+    git clone -c core.autocrlf=false https://github.com/JoshuaWierenga/cosmopolitan --depth=1 -b build-on-windows-fix
   ) else (
-    call :download_zip https://github.com/JoshuaWierenga/cosmopolitan/archive/refs/heads/build-on-windows-3.zip,^
-    build-on-windows-3.zip, cosmopolitan-build-on-windows-3, cosmopolitan
+    call :download_zip https://github.com/JoshuaWierenga/cosmopolitan/archive/refs/heads/build-on-windows-fix.zip,^
+    build-on-windows-fix.zip, cosmopolitan-build-on-windows-fix, cosmopolitan
   )
 )
 setlocal
