@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# NOTE: Until I fully test things, I recommend using 0.3.0 which uses the build-on-windows-3 branch
 # Joshua's unix cosmopolitan build script 0.4.1
 # Changes:
 # 0.4.1: Fix gcc check.
