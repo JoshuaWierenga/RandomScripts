@@ -1,8 +1,10 @@
 #!/bin/sh
 
-# Joshua's ape gcc build script 0.10.1
+# Joshua's ape gcc build script 0.11.0
 # Based on https://github.com/ahgamut/musl-cross-make/blob/cibuild/.github/workflows/release.yml
 # Changes
+#0.11.0: Update cosmo to current newest version, on windows this breaks .com extensions
+#        since that special case was removed but that is easy enough to work around
 #0.10.1: Fix line endings
 #0.10.0: Update cosmo to a commit from 2023/09/07, there are currently some major
 #        issues with windows support including random crashing so not going any
@@ -38,7 +40,7 @@ mkdir cosmopolitan
 cd cosmopolitan || exit
 git init
 git remote add origin https://github.com/jart/cosmopolitan.git
-git fetch origin 032b1f3449f0103d5f58ac43a9479a2fd850fa49 --depth=1
+git fetch origin 3ffc17c50e7665bfefa2fd3f65eb03742c1a4cac --depth=1
 git reset --hard FETCH_HEAD
 
 sed -i '7 i\
