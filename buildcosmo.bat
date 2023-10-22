@@ -1,8 +1,9 @@
 @echo off
 
 REM NOTE: Until I fully test things, I recommend using 0.5.0 which uses the build-on-windows-3 branch
-REM Joshua's windows cosmopolitan build script 0.5.4
+REM Joshua's windows cosmopolitan build script 0.6.0
 REM Changes:
+REM 0.6.0: Switch to ahgamut's new apegcc builds.
 REM 0.5.4: Change toolchain branding to work with cosmo 3.0.
 REM 0.5.3: Improve copy check in download function and hide excessive output when extracting comso.
 REM 0.5.2: Updated apegcc version. The special handling for .com files has been removed and so
@@ -34,14 +35,8 @@ cd cosmopolitan
 if not exist o\third_party\gcc\bin\x86_64-linux-cosmo-gcc (
   mkdir o\third_party\gcc 2>nul
   cd o\third_party\gcc
-  call :download_zip https://github.com/JoshuaWierenga/RandomScripts/releases/download/z0.0.0-3/gcc11.zip,^
-  gcc11.zip
-
-  REM Create versions of toolchain programs with the correct prefix and no .com suffix
-  REM Cosmo's build system expects x86_64-linux-cosmo-{toolname} while the tools
-  REM themselves just want {toolname} so this line can't just rename the files
-  for /R bin %%f in (*.com) do move "%%f" "bin\%%~nf" >nul
-  for /R bin %%f in (*) do copy "%%f" "bin\x86_64-linux-cosmo-%%~nxf" >nul
+  call :download_zip https://github.com/ahgamut/superconfigure/releases/download/z0.0.15/x86_64-gcc.zip,^
+  x86_64-gcc.zip
   cd ..\..\..
 )
 
