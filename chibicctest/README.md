@@ -10,7 +10,7 @@ make o//third_party/chibicc/chibicc
 printf "#include <stdio.h>\nint main(void) { puts(\"This is a test\"); }" > chibicctest.c
 o/third_party/chibicc/chibicc -fno-common -include libc/integral/normalize.inc -isystem libc/isystem/ -o chibicctest.o -c chibicctest.c
 .cosmocc/3.6.2/bin/x86_64-unknown-cosmo-cc -o chibicctest chibicctest.o
-.cosmocc/3.6.2/bin/apelink -l cosmo\.cosmocc\3.6.2\bin\ape-x86_64.elf -o chibicctest.com chibicctest
+.cosmocc/3.6.2/bin/apelink -l .cosmocc\3.6.2\bin\ape-x86_64.elf -o chibicctest.com chibicctest
 ./chibicctest.com
 ```
 
