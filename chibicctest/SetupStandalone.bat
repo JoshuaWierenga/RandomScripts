@@ -15,9 +15,7 @@ xcopy cosmo\.cosmocc\3.6.2\include\ out\cosmo\.cosmocc\3.6.2\include\ /sy
 mkdir out\cosmo\.cosmocc\3.6.2\libexec\gcc\x86_64-linux-cosmo\14.1.0\
 copy cosmo\.cosmocc\3.6.2\libexec\gcc\x86_64-linux-cosmo\14.1.0\ld out\cosmo\.cosmocc\3.6.2\libexec\gcc\x86_64-linux-cosmo\14.1.0\
 xcopy cosmo\.cosmocc\3.6.2\x86_64-linux-cosmo\ out\cosmo\.cosmocc\3.6.2\x86_64-linux-cosmo\ /sy
-xcopy cosmo\ctl\*.h out\cosmo\ctl\ /sy
 xcopy cosmo\dsp\*.h out\cosmo\dsp\ /sy
-xcopy cosmo\libc\*.h out\cosmo\libc\ /sy
+xcopy cosmo\libc\*.h out\cosmo\libc\ /sy /exclude:CopyExcept.txt
 xcopy cosmo\libc\*.inc out\cosmo\libc\ /sy
 xcopy cosmo\net\*.h out\cosmo\net\ /sy
-xcopy cosmo\third_party\*.h out\cosmo\third_party\ /sy
