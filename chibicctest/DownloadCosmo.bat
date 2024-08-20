@@ -25,6 +25,6 @@ if not exist cosmocc.zip curl -fLo cosmocc.zip https://github.com/jart/cosmopoli
 if not exist cosmo\.cosmocc\3.6.2 mkdir cosmo\.cosmocc\3.6.2
 if not exist cosmo\.cosmocc\3.6.2\bin\x86_64-unknown-cosmo-cc tar -xvf cosmocc.zip -C cosmo\.cosmocc\3.6.2
 
-if not existbin\apelink.exe copy .cosmocc\3.6.2\bin\apelink bin\apelink.exe
+if not exist bin\apelink.exe copy cosmo\.cosmocc\3.6.2\bin\apelink bin\apelink.exe
 if not exist bin\gzip copy cosmo\.cosmocc\3.6.2\bin\gzip.ape bin\gzip
 if not exist bin\mkdir copy cosmo\.cosmocc\3.6.2\bin\mkdir.ape bin\mkdir
