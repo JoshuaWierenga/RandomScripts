@@ -1,7 +1,7 @@
 An attempt at using chibicc instead of apegcc/cosmocc to build cosmo programs.
 Currently cosmocc is still required for ld and headers.
 
-Rough instructions on unix-likes:
+Rough instructions on unix-likes(does not use anything from this repo currently):
 ```sh
 git clone https://github.com/jart/cosmopolitan.git
 cd cosmopolitan
