@@ -1,0 +1,16 @@
+bin/
+
+cosmo/
+cosmo.tar.gz
+cosmocc.zip
+
+chibicctest
+chibicctest.com
+chibicctest.o
+
+out/*
+!out/bin
+out/bin/*
+!out/bin/chibicc.bat
+
+nppBackup/
