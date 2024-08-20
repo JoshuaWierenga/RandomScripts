@@ -5,12 +5,12 @@ Rough instructions on unix-likes:
 ```sh
 git clone https://github.com/jart/cosmopolitan.git
 cd cosmopolitan
-make o//third_party/chibicc/chibicc o//tool/build/apelink
+make o//third_party/chibicc/chibicc
 
 printf "#include <stdio.h>\nint main(void) { puts(\"This is a test\"); }" > chibicctest.c
 o/third_party/chibicc/chibicc -fno-common -include libc/integral/normalize.inc -isystem libc/isystem/ -o chibicctest.o -c chibicctest.c
 .cosmocc/3.6.2/bin/x86_64-unknown-cosmo-cc -o chibicctest chibicctest.o
-o//tool/build/apelink -l build/bootstrap/ape.elf -o chibicctest.com chibicctest
+.cosmocc/3.6.2/bin/apelink -l cosmo\.cosmocc\3.6.2\bin\ape-x86_64.elf -o chibicctest.com chibicctest
 ./chibicctest.com
 ```
 
