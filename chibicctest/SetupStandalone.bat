@@ -5,17 +5,14 @@ copy bin\apelink.exe out\bin\apelink.com
 copy bin\chibicc.exe out\bin\chibicc.com
 copy bin\dash.exe out\bin\
 
-xcopy cosmo\.cosmocc\3.6.2\ out\cosmo\.cosmocc\3.6.2\ /y
-mkdir out\cosmo\.cosmocc\3.6.2\bin\
-copy cosmo\.cosmocc\3.6.2\bin\ape-x86_64.elf out\cosmo\.cosmocc\3.6.2\bin\
-copy cosmo\.cosmocc\3.6.2\bin\fixupobj out\cosmo\.cosmocc\3.6.2\bin\
-copy cosmo\.cosmocc\3.6.2\bin\x86_64-linux-cosmo-gcc out\cosmo\.cosmocc\3.6.2\bin\
-copy cosmo\.cosmocc\3.6.2\bin\x86_64-unknown-cosmo-cc out\cosmo\.cosmocc\3.6.2\bin\
-xcopy cosmo\.cosmocc\3.6.2\include\ out\cosmo\.cosmocc\3.6.2\include\ /sy
-mkdir out\cosmo\.cosmocc\3.6.2\libexec\gcc\x86_64-linux-cosmo\14.1.0\
-copy cosmo\.cosmocc\3.6.2\libexec\gcc\x86_64-linux-cosmo\14.1.0\ld out\cosmo\.cosmocc\3.6.2\libexec\gcc\x86_64-linux-cosmo\14.1.0\
-xcopy cosmo\.cosmocc\3.6.2\x86_64-linux-cosmo\ out\cosmo\.cosmocc\3.6.2\x86_64-linux-cosmo\ /sy
-xcopy cosmo\dsp\*.h out\cosmo\dsp\ /sy
-xcopy cosmo\libc\*.h out\cosmo\libc\ /sy /exclude:CopyExcept.txt
-xcopy cosmo\libc\*.inc out\cosmo\libc\ /sy
-xcopy cosmo\net\*.h out\cosmo\net\ /sy
+xcopy cosmo\.cosmocc\3.6.2\ out\cosmo\ /y
+mkdir out\cosmo\bin\
+copy cosmo\.cosmocc\3.6.2\bin\ape-x86_64.elf out\cosmo\bin\
+copy cosmo\.cosmocc\3.6.2\bin\fixupobj out\cosmo\bin\
+copy cosmo\.cosmocc\3.6.2\bin\x86_64-linux-cosmo-gcc out\cosmo\bin\
+copy cosmo\.cosmocc\3.6.2\bin\x86_64-unknown-cosmo-cc out\cosmo\bin\
+xcopy cosmo\.cosmocc\3.6.2\include\ out\cosmo\include\ /sy
+mkdir out\cosmo\libexec\gcc\x86_64-linux-cosmo\14.1.0\
+copy cosmo\.cosmocc\3.6.2\libexec\gcc\x86_64-linux-cosmo\14.1.0\ld out\cosmo\libexec\gcc\x86_64-linux-cosmo\14.1.0\
+xcopy cosmo\.cosmocc\3.6.2\x86_64-linux-cosmo\ out\cosmo\x86_64-linux-cosmo\ /sy
+xcopy cosmo\dsp\*.h out\cosmo\include\dsp\ /sy
